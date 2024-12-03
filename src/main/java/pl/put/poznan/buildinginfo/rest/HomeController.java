@@ -3,14 +3,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.Arrays;
-
 @RestController
 @RequestMapping("/")
-public class HomeControler {
-    private static final Logger logger = LoggerFactory.getLogger(HomeControler.class);
+public class HomeController {
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
+    //localhost:8080/
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public String get() {
         logger.debug("Home entered");
