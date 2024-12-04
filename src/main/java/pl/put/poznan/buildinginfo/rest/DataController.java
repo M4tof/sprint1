@@ -40,4 +40,6 @@ public class DataController {
 
         return repository.getAllBuildings(); // Return the full building objects
     }
+
+
 }
