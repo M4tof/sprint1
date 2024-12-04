@@ -1,0 +1,28 @@
+{
+  "id": "B001",
+  "name": "Office Building",
+  "levels": [
+    {
+      "id": "L1",
+      "name": "Ground Floor",
+      "rooms": [
+        {
+          "id": "R1",
+          "name": "Conference Room",
+          "area": 50.0,
+          "cube": 200.0,
+          "heating": 500.0,
+          "light": 300.0
+        },
+        {
+          "id": "R2",
+          "name": "Office 101",
+          "area": 30.0,
+          "cube": 120.0,
+          "heating": 300.0,
+          "light": 200.0
+        }
+      ]
+    }
+  ]
+}
