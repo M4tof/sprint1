@@ -49,6 +49,14 @@ public class Level {
         this.rooms = rooms;
     }
 
+    public float getLevelArea(){
+        float sum = 0;
+        for(Room room : this.getRooms()){
+            sum += room.getArea();
+        }
+        return sum;
+    }
+
     @Override
     public String toString() {
         return "Level{" +

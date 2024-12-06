@@ -49,6 +49,14 @@ public class Building {
         this.levels = levels;
     }
 
+    public float getBuildingArea(){
+        float sum = 0;
+        for(Level level : this.getLevels()){
+            sum += level.getLevelArea();
+        }
+        return sum;
+    }
+
     @Override
     public String toString() {
         return "Building{" +
