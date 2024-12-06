@@ -9,6 +9,7 @@ public class Room {
     private float light;
 
     // Constructor
+    public Room(){}
     public Room(String id, String name, float area, float cube, float heating, float light) {
         this.id = id;
         this.name = name;

@@ -9,6 +9,7 @@ public class Building {
     private List<Level> levels;
 
     // Constructor
+    public Building(){}
     public Building(String id, String name) {
         this.id = id;
         this.name = name;

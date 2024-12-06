@@ -9,6 +9,7 @@ public class Level {
     private List<Room> rooms;
 
     // Constructor
+    public Level(){}
     public Level(String id, String name) {
         this.id = id;
         this.name = name;
