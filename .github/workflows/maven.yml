@@ -35,7 +35,7 @@ jobs:
         path: target/
     
     - name: List target directory contents
-        run: ls -R target
+      run: ls -R target
 
   # Job 2: Run Tests
   test:
@@ -73,7 +73,7 @@ jobs:
 
     # Step 2.5: Ensure the directory structure is correct
     - name: List target directory contents after download
-        run: ls -R target
+      run: ls -R target
 
     # Step 3: Upload the JAR file
     - name: Upload JAR file
