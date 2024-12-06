@@ -58,26 +58,34 @@ jobs:
 
   # Job 3: Upload JAR
   upload:
-    runs-on: ubuntu-latest
-    needs: build
+  runs-on: ubuntu-latest
+  needs: build
 
-    steps:
-    # Step 1: Checkout the repository
-    - uses: actions/checkout@v4
+  steps:
+  # Step 1: Checkout the repository
+  - uses: actions/checkout@v4
 
-    # Step 2: Download build artifacts
-    - name: Download build artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: build-artifacts
+  # Step 2: Download build artifacts
+  - name: Download build artifacts
+    uses: actions/download-artifact@v3
+    with:
+      name: build-artifacts
 
-    # Step 2.5: Ensure the directory structure is correct
-    - name: List target directory contents after download
-      run: ls -R target
+  # Step 3: Verify target directory contents after download
+  - name: List contents after artifact download
+    run: ls -R .
 
-    # Step 3: Upload the JAR file
-    - name: Upload JAR file
-      uses: actions/upload-artifact@v3
-      with:
-        name: java-package
-        path: target/*.jar
+  # Step 4: Move the artifact back to target directory (if necessary)
+  - name: Restore target directory
+    run: mkdir -p target && mv build-artifacts/* target/
+
+  # Step 5: Verify the target directory structure
+  - name: Verify JAR file in target
+    run: ls -R target
+
+  # Step 6: Upload the JAR file
+  - name: Upload JAR file
+    uses: actions/upload-artifact@v3
+    with:
+      name: java-package
+      path: target/*.jar
