@@ -22,6 +22,12 @@ public class CalculateController {
     @GetMapping(value = "/Area/{id}", produces = "application/json")
     public float calculateTotalArea(@PathVariable String id) {
         logger.debug("Received request to calculate total area for building with ID: {}", id);
+
+        if (id == null) {
+            logger.error("Invalid building id");
+            throw new IllegalArgumentException("Invalid building id");
+        }
+
         Building building = repository.getBuildingById(id);
 
         if (building == null) {
@@ -38,6 +44,12 @@ public class CalculateController {
     @GetMapping(value = "/Cube/{id}", produces = "application/json")
     public float calculateTotalCube(@PathVariable String id) {
         logger.debug("Received request to calculate total cube for building with ID: {}", id);
+
+        if (id == null) {
+            logger.error("Invalid building id");
+            throw new IllegalArgumentException("Invalid building id");
+        }
+
         Building building = repository.getBuildingById(id);
 
         if (building == null) {
@@ -54,6 +66,12 @@ public class CalculateController {
     @GetMapping(value = "/Area/{id}/{levelId}", produces = "application/json")
     public float calculateTotalArea(@PathVariable String id, @PathVariable String levelId) {
         logger.debug("Received request to calculate total area for level with ID: {} within building with ID: {}", levelId, id);
+
+        if (id == null) {
+            logger.error("Invalid building id");
+            throw new IllegalArgumentException("Invalid building id");
+        }
+
         Building building = repository.getBuildingById(id);
 
         if (building == null) {
@@ -67,6 +85,11 @@ public class CalculateController {
         }
 
         Level level = building.getLevelById(levelId);
+
+        if (level == null) {
+            logger.error("Level not found with ID: {} within building with ID: {}", levelId, id);
+            throw new IllegalArgumentException("Level not found");
+        }
 
         float totalArea = level.getLevelArea();
         logger.debug("Calculated total area for level with ID: {} within building with ID: {} is {}", levelId, id, totalArea);
@@ -77,6 +100,12 @@ public class CalculateController {
     @GetMapping(value = "/Cube/{id}/{levelId}", produces = "application/json")
     public float calculateTotalCube(@PathVariable String id, @PathVariable String levelId) {
         logger.debug("Received request to calculate total cube for level with ID: {} within building with ID: {}", levelId, id);
+
+        if (id == null) {
+            logger.error("Invalid building id");
+            throw new IllegalArgumentException("Invalid building id");
+        }
+
         Building building = repository.getBuildingById(id);
 
         if (building == null) {
@@ -90,6 +119,11 @@ public class CalculateController {
         }
 
         Level level = building.getLevelById(levelId);
+
+        if (level == null) {
+            logger.error("Level not found with ID: {} within building with ID: {}", levelId, id);
+            throw new IllegalArgumentException("Level not found");
+        }
 
         float totalCube = level.getLevelCube();
         logger.debug("Calculated total cube for level with ID: {} within building with ID: {} is {}", levelId, id, totalCube);
