@@ -1,11 +1,12 @@
 # Opis :mag:
-Projekt Building Info rozwiązywany jako nauka metodyki sprint na zajęciach Inżynieri Oprogramowania na Politechnice Poznańskiej.
+Projekt Building Info rozwiązywany jako nauka metodyki sprint na zajęciach Inżynierii Oprogramowania na Politechnice Poznańskiej.
 
-Dla administratorów budynków, którzy pragną optymalizować koszty zarządzania budynkami  nasza aplikacja Building Info umożliwi pozyskanie informacji o parametrach budynku na poziomie pomieszczeń, kondygnacji oraz całych budynków. Aplikacja będzie dostępna poprzez GUI a także jako zdalne API dzięki czemu można ją zintegrować z istniejącymi narzędziami.
+Dla administratorów budynków, którzy pragną optymalizować koszty zarządzania budynkami, nasza aplikacja Building Info umożliwi pozyskanie informacji o parametrach budynku na poziomie pomieszczeń, kondygnacji oraz całych budynków. Aplikacja będzie dostępna poprzez GUI, a także jako zdalne API, dzięki czemu można ją zintegrować z istniejącymi narzędziami.
 
 # autorzy :construction_worker:
 Jakub Szybura 155951,
-Krzysztof Mańczak 155939
+Krzysztof Mańczak 155939,
+Marcin Wieczorek 155912
 
 
 # UML :bulb:
