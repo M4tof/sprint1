@@ -1,17 +1,17 @@
 package pl.put.poznan.buildinginfo.logic;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BuildingRepositoryTest {
 
-    private BuildingRepository repo;
-    private Building office;
+    private static BuildingRepository repo;
+    private static Building office;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUp() {
         repo = BuildingRepository.getInstance();
 
         // Clear any previous buildings in the repository (if singleton persists across tests)
