@@ -2,6 +2,7 @@ package pl.put.poznan.buildinginfo.logic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Building {
     private String id;
@@ -48,6 +49,15 @@ public class Building {
 
     public void setLevels(List<Level> levels) {
         this.levels = levels;
+    }
+
+    public Level getLevelById(String Id){
+        for (Level i: levels){
+            if ( Objects.equals(Id,i.getId()) ){
+                return i;
+            }
+        }
+        return null;
     }
 
     public float getBuildingArea(){

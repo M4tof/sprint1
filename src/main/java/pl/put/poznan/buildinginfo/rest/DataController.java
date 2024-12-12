@@ -9,14 +9,16 @@ import pl.put.poznan.buildinginfo.logic.Building;
 import pl.put.poznan.buildinginfo.logic.BuildingRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/Data")
 public class DataController {
     private static final Logger logger = LoggerFactory.getLogger(DataController.class);
+    private final BuildingRepository repository;
 
-    private final BuildingRepository repository = BuildingRepository.getInstance();
+    public DataController(BuildingRepository repository) {
+        this.repository = repository;
+    }
 
     // localhost:8080/Data/Add-building  <- JSON
     @RequestMapping(method = RequestMethod.POST,
