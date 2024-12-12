@@ -58,6 +58,14 @@ public class Building {
         return sum;
     }
 
+    public float getBuildingCube(){
+        float sum = 0;
+        for(Level level : this.getLevels()){
+            sum += level.getLevelCube();
+        }
+        return sum;
+    }
+
     @Override
     public String toString() {
         return "Building{" +
