@@ -76,6 +76,30 @@ public class Building {
         return sum;
     }
 
+    public float getBuildingLight(){
+        float sum = 0, counter = 0;
+        for(Level level : this.getLevels()){
+            sum += level.getLevelLight();
+            counter++;
+        }
+        if (counter > 0) {
+            return sum/counter;
+        }
+        return 0;
+    }
+
+    public float getBuildingHeating(){
+        float sum = 0, counter = 0;
+        for(Level level : this.getLevels()){
+            sum += level.getLevelHeating();
+            counter++;
+        }
+        if (counter > 0) {
+            return sum/counter;
+        }
+        return 0;
+    }
+
     @Override
     public String toString() {
         return "Building{" +
