@@ -76,6 +76,30 @@ public class Level {
         return sum;
     }
 
+    public float getLevelLight(){
+        float lightsum = 0, areasum = 0;
+        for(Room room : this.getRooms()){
+            lightsum += room.getLight();
+            areasum += room.getArea();
+        }
+        if (areasum > 0) {
+            return lightsum / areasum;
+        }
+        return 0;
+    }
+
+    public float getLevelHeating(){
+        float heatingsum = 0, cubesum = 0;
+        for(Room room : this.getRooms()){
+            heatingsum += room.getHeating();
+            cubesum += room.getCube();
+        }
+        if (cubesum > 0) {
+            return heatingsum / cubesum;
+        }
+        return 0;
+    }
+
     @Override
     public String toString() {
         return "Level{" +
