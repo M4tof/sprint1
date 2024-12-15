@@ -6,10 +6,11 @@ Dla administratorów budynków, którzy pragną optymalizować koszty zarządzan
 # autorzy :construction_worker:
 Jakub Szybura 155951,
 Krzysztof Mańczak 155939,
-Marcin Wieczorek 155912
+Marcin Wieczorek 155912,
+Jan Czemko 155638
 
 
-# UML :bulb:
+# UML :![Diagram](UML.png?raw=true "Title")
 
 # Google docs :books:
 BuildingInfo.xlsx
