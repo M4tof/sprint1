@@ -6,15 +6,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Klasa reprezentująca repozytorium budynków.
+ * <p>
+ * Celem klasy {@code BuildingRepository} jest zarządzanie kolekcją budynków w systemie,
+ * umożliwiając ich dodawanie, wyszukiwanie oraz utrzymywanie unikalności identyfikatorów budynków,
+ * poziomów i pomieszczeń w obrębie repozytorium.
+ * </p>
+ */
 @Repository
 public class BuildingRepository {
-    private static BuildingRepository instance;
-    private final List<Building> buildings;
+    private static BuildingRepository instance; // Jedyna instancja repozytorium
+    private final List<Building> buildings; // Lista przechowująca budynki
 
+    /**
+     * Prywatny konstruktor, inicjalizujący pustą listę budynków.
+     */
     private BuildingRepository() {
         this.buildings = new ArrayList<>();
     }
 
+    /**
+     * Zwraca instancję klasy BuildingRepository.
+     * Jeżeli instancja nie istnieje tworzy ją.
+     *
+     * @return instancja klasy BuildingRepository
+     */
     public static synchronized BuildingRepository getInstance() {
         if (instance == null) {
             instance = new BuildingRepository();
@@ -22,6 +39,14 @@ public class BuildingRepository {
         return instance;
     }
 
+    /**
+     * Dodaje nowy budynek do repozytorium budynków.
+     * Sprawdza czy podany budynek nie istnieje już w repozytorium oraz czy piętra i pomieszczenia nie mają nieunikalnych identyfikatorów.
+     *
+     * @param building budynek do dodania
+     *
+     * @throws IllegalArgumentException jeżeli budynek o takim identyfikatorze już istnieje w repozytorium lub gdy identyfikatory poziomów lub pomieszczeń są nieunikalne
+     */
     public void addBuilding(Building building) {
         // Check if a building with the same ID already exists
         Building existingBuilding = getBuildingById(building.getId());
@@ -51,11 +76,22 @@ public class BuildingRepository {
         buildings.add(building);
     }
 
-
+    /**
+     * Tworzy kopię repozytorium budynków, celem uniknięcia bezpośredniej modyfikacji repozytorium.
+     *
+     * @return kopia listy budynków w repozytorium
+     */
     public List<Building> getAllBuildings() {
         return new ArrayList<>(buildings); // Return a copy to avoid direct manipulation
     }
 
+    /**
+     * Wyszkukuje budynek na podstawie jego identyfikatora.
+     *
+     * @param Id identyfikator poszukiwanego budynku
+     *
+     * @return budynek o szukanym identyfikatorze lub null jeśli nie istnieje
+     */
     public Building getBuildingById(String Id){
         for (Building i: buildings){
             if ( Objects.equals(Id,i.getId()) ){
