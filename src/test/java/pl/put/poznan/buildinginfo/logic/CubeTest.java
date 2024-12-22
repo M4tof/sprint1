@@ -15,7 +15,7 @@ class CubeTest {
         for(int i = 0; i < 4; i++){
             Level level = new Level(String.valueOf(i), "Name"+i);
             for (int j = 10; j < 50; j += 10){
-                Room testRoom = new Room(String.valueOf(j), "Name"+j, 1, (float)j, 1,1 );
+                Room testRoom = new Room(String.valueOf(j), "Name"+j, 1, (float)j);
                 level.addRoom(testRoom);
             }
             testBuilding.addLevel(level);
