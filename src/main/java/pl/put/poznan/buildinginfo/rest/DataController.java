@@ -24,9 +24,8 @@ public class DataController {
         this.repository = repository;
     }
 
-    // localhost:8080/Data/Add-building  <- JSON
+    // localhost:8080/Data  <- JSON
     @RequestMapping(method = RequestMethod.POST,
-            value = "/Add-building",
             consumes = "application/json",
             produces = "application/json")
     public ResponseEntity<?> proccesBuilding(@RequestBody Building building) {
@@ -139,11 +138,40 @@ public class DataController {
 
     // localhost:8080/Data/Get-buildings
     @RequestMapping(method = RequestMethod.GET,
-            value = "/Get-buildings",
             produces = "application/json")
     public List<Building> getAllBuildings() {
         logger.info("Fetching all buildings with full details");
-
-        return repository.getAllBuildings(); // Return the full building objects
+        return repository.getAllBuildings();
     }
+
+    // localhost:8080/Data/{id}
+    @RequestMapping(method = RequestMethod.DELETE,
+            value = "/{id}",
+            produces = "application/json")
+    public ResponseEntity<?> removePart(@PathVariable String id) {
+        logger.debug("Received remove request for ID: {}", id);
+
+        if (id == null || id.isEmpty()) {
+            logger.error("Invalid ID received: ID is null or empty");
+            return ResponseEntity.badRequest().body("Invalid ID: ID is null or empty");
+        }
+
+        try {
+            Building toDelete = repository.getBuildingById(id);
+
+            if (toDelete != null) {
+                logger.info("Building found for deletion: ID: {}, Name: {}", toDelete.getId(), toDelete.getName());
+                repository.removeBuilding(id);
+                return ResponseEntity.ok("Building scheduled for deletion: ID: " + id);
+            } else {
+                logger.warn("No building found with ID: {}", id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No building found with ID: " + id);
+            }
+        } catch (Exception e) {
+            logger.error("Error while processing delete request for ID: {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing delete request: " + e.getMessage());
+        }
+    }
+
+
 }
