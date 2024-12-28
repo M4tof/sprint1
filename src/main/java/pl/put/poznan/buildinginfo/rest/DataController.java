@@ -7,6 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.buildinginfo.logic.Building;
 import pl.put.poznan.buildinginfo.logic.BuildingRepository;
+import pl.put.poznan.buildinginfo.logic.OfficeRoom;
+import pl.put.poznan.buildinginfo.logic.Balcony;
+import pl.put.poznan.buildinginfo.logic.Pool;
+import pl.put.poznan.buildinginfo.logic.Garage;
 
 import java.util.List;
 
@@ -81,13 +85,41 @@ public class DataController {
                     logger.error("Invalid cube for room: {}", room.getName());
                     return ResponseEntity.badRequest().body("Invalid cube for room: " + room.getName());
                 }
-                if (room.getHeating() <= 0) {
-                    logger.error("Invalid heating for room: {}", room.getName());
-                    return ResponseEntity.badRequest().body("Invalid heating for room: " + room.getName());
+                if(room instanceof OfficeRoom){
+                    OfficeRoom officeRoom = (OfficeRoom) room;
+                    if (officeRoom.getHeating() <= 0) {
+                        logger.error("Invalid heating for room: {}", room.getName());
+                        return ResponseEntity.badRequest().body("Invalid heating for room: " + room.getName());
+                    }
+                    if (officeRoom.getLight() <= 0) {
+                        logger.error("Invalid light for room: {}", room.getName());
+                        return ResponseEntity.badRequest().body("Invalid light for room: " + room.getName());
+                    }
+                    if(room instanceof Pool){
+                        Pool pool = (Pool) room;
+                        if(pool.getPoolArea() <=0){
+                            logger.error("Invalid pool size for room: {}", room.getName());
+                            return ResponseEntity.badRequest().body("Invalid pool size for room: " + room.getName());
+                        }
+                        if(pool.getPoolArea() >= pool.getArea()){
+                            logger.error("Invalid pool size (larger than room itself) for room: {}", room.getName());
+                            return ResponseEntity.badRequest().body("Invalid pool size (larger than room itself) for room: " + room.getName());
+                        }
+                    }
                 }
-                if (room.getLight() <= 0) {
-                    logger.error("Invalid light for room: {}", room.getName());
-                    return ResponseEntity.badRequest().body("Invalid light for room: " + room.getName());
+                else if(room instanceof Balcony){
+                    Balcony balcony = (Balcony) room;
+                    if(balcony.getLight() <= 0){
+                        logger.error("Invalid light for room: {}", room.getName());
+                        return ResponseEntity.badRequest().body("Invalid light for room: " + room.getName());
+                    }
+                    if(room instanceof Garage){
+                        Garage garage = (Garage) room;
+                        if(garage.getGarageCapacity() <= 0){
+                            logger.error("Invalid garage capacity for room: {}", room.getName());
+                            return ResponseEntity.badRequest().body("Invalid garage capacity for room: " + room.getName());
+                        }
+                    }
                 }
             }
         }

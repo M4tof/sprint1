@@ -15,7 +15,7 @@ class HeatingTest {
         for(int i = 0; i < 3; i++){
             Level level = new Level(String.valueOf(i), "Name"+i);
             for (int j = 10; j < 50; j += 10){
-                Room testRoom = new Room(String.valueOf(j), "Name"+j, 1, (float)j / 2, (float)j * (i+1), 1 );
+                OfficeRoom testRoom = new OfficeRoom(String.valueOf(j), "Name"+j, 1, (float)j / 2, (float)j * (i+1), 1 );
                 level.addRoom(testRoom);
             }
             testBuilding.addLevel(level);

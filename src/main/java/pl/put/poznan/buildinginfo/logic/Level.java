@@ -168,8 +168,16 @@ public class Level {
     public float getLevelLight(){
         float lightsum = 0, areasum = 0;
         for(Room room : this.getRooms()){
-            lightsum += room.getLight();
-            areasum += room.getArea();
+            if(room instanceof OfficeRoom) {
+                areasum += room.getArea();
+                OfficeRoom officeRoom = (OfficeRoom) room; // Rzutowanie
+                lightsum += officeRoom.getLight();
+            }
+            else if(room instanceof Balcony) {
+                areasum += room.getArea();
+                Balcony balcony = (Balcony) room; // Rzutowanie
+                lightsum += balcony.getLight();
+            }
         }
         if (areasum > 0) {
             return lightsum / areasum;
@@ -185,8 +193,11 @@ public class Level {
     public float getLevelHeating(){
         float heatingsum = 0, cubesum = 0;
         for(Room room : this.getRooms()){
-            heatingsum += room.getHeating();
-            cubesum += room.getCube();
+            if(room instanceof OfficeRoom){
+                cubesum += room.getCube();
+                OfficeRoom officeRoom = (OfficeRoom) room;
+                heatingsum += officeRoom.getHeating();
+            }
         }
         if (cubesum > 0) {
             return heatingsum / cubesum;

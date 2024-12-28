@@ -1,5 +1,8 @@
 package pl.put.poznan.buildinginfo.logic;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Klasa reprezentująca pomieszczenie w budynku.
  * <p>
@@ -13,13 +16,25 @@ package pl.put.poznan.buildinginfo.logic;
  * Metody zawarte w klasie umożliwiają zewnętrzny dostęp do tych prywatnych atrybutów oraz w miarę potrzeb do ich zmian.
  * </p>
  */
+
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME, // Typ będzie określony w polu "type" w JSON
+        include = JsonTypeInfo.As.PROPERTY, // Pole "type" będzie właściwością obiektu
+        property = "type" // Nazwa pola w JSON, które wskaże typ (np. "Room", "OfficeRoom")
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Room.class, name = "Room"),
+        @JsonSubTypes.Type(value = OfficeRoom.class, name = "OfficeRoom"),
+        @JsonSubTypes.Type(value = Balcony.class, name = "Balcony"),
+        @JsonSubTypes.Type(value = Pool.class, name = "Pool"),
+        @JsonSubTypes.Type(value = Garage.class, name = "Garage")
+})
 public class Room {
     private String id; // Unikalny identyfikator pomieszczenia
     private String name; // Optional nazwa pomieszczenia
     private float area; // Powierzchnia pomieszczenia
     private float cube; // Objętość pomieszczenia
-    private float heating; // Ogrzewanie
-    private float light; // Oświetlenie
 
     // Constructor
     /**
@@ -34,16 +49,12 @@ public class Room {
      * @param name opcjonalna nazwa pomieszczenia
      * @param area powierzchnia pomieszczenia
      * @param cube objętość pomieszczenia
-     * @param heating ogrzewanie pomieszczenia
-     * @param light oświetlenie pomieszczenia
      */
-    public Room(String id, String name, float area, float cube, float heating, float light) {
+    public Room(String id, String name, float area, float cube) {
         this.id = id;
         this.name = name;
         this.area = area;
         this.cube = cube;
-        this.heating = heating;
-        this.light = light;
     }
 
     // Getters and setters
@@ -120,47 +131,7 @@ public class Room {
         this.cube = cube;
     }
 
-    /**
-     * Zwraca parametry grzewcze pomieszczenia.
-     *
-     * @return parametry grzewcze
-     */
-    public float getHeating() {
-        return heating;
-    }
 
-    /**
-     * Ustawia nowe parametry grzewcze.
-     *
-     * @param heating parametry grzewcze
-     */
-    public void setHeating(float heating) {
-        this.heating = heating;
-    }
-
-    /**
-     * Zwraca oświetlenie pomieszczenia.
-     *
-     * @return oświetlenie
-     */
-    public float getLight() {
-        return light;
-    }
-
-    /**
-     * Ustawia nowe oświetlenie pomieszczenia.
-     *
-     * @param light oświetlenie
-     */
-    public void setLight(float light) {
-        this.light = light;
-    }
-
-    /**
-     * Zwraca tekstową reprezentację pomieszczenia.
-     *
-     * @return tekstowa reprezentacja pomieszczenia
-     */
     @Override
     public String toString() {
         return "Room{" +
@@ -168,8 +139,6 @@ public class Room {
                 ", name='" + name + '\'' +
                 ", area=" + area +
                 ", cube=" + cube +
-                ", heating=" + heating +
-                ", light=" + light +
                 '}';
     }
 }

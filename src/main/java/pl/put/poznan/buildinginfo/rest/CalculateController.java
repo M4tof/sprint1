@@ -3,10 +3,7 @@ package pl.put.poznan.buildinginfo.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-import pl.put.poznan.buildinginfo.logic.Building;
-import pl.put.poznan.buildinginfo.logic.BuildingRepository;
-import pl.put.poznan.buildinginfo.logic.Level;
-import pl.put.poznan.buildinginfo.logic.Room;
+import pl.put.poznan.buildinginfo.logic.*;
 
 @RestController
 @RequestMapping("/Calculate")
@@ -372,7 +369,14 @@ public class CalculateController {
             throw new IllegalArgumentException("Level not found");
         }
 
-        float totalHeating = room.getHeating();
+        if(!(room instanceof OfficeRoom)){
+            logger.error("Specified room does not have heating parameter, choose a room of type with heating");
+            throw new IllegalArgumentException("Invalid room type");
+        }
+
+        OfficeRoom officeRoom = (OfficeRoom) room;
+        float totalHeating = officeRoom.getHeating();
+
         logger.debug("Calculated total heating for room with ID: {} within level with ID: {} within building with ID: {} is {}", roomId, levelId, id, totalHeating);
         return totalHeating;
     }
@@ -412,13 +416,26 @@ public class CalculateController {
 
         Room room = level.getRoomById(roomId);
 
-        if(room == null){
+        if (room == null) {
             logger.error("Room not found with ID: {} within level with ID: {} within building with ID: {}", roomId, levelId, id);
             throw new IllegalArgumentException("Level not found");
         }
 
-        float totalLight = room.getLight();
-        logger.debug("Calculated total light for room with ID: {} within level with ID: {} within building with ID: {} is {}", roomId, levelId, id, totalLight);
-        return totalLight;
+        if (!(room instanceof OfficeRoom) && !(room instanceof Balcony)) {
+            logger.error("Specified room does not have light parameter, choose a room of type with light");
+            throw new IllegalArgumentException("Invalid room type");
+        }
+        if(room instanceof OfficeRoom){
+            OfficeRoom officeRoom = (OfficeRoom) room;
+            float totalLight = officeRoom.getLight();
+            logger.debug("Calculated total light for room with ID: {} within level with ID: {} within building with ID: {} is {}", roomId, levelId, id, totalLight);
+            return totalLight;
+        }
+        else {
+            Balcony balcony = (Balcony) room;
+            float totalLight = balcony.getLight();
+            logger.debug("Calculated total light for room with ID: {} within level with ID: {} within building with ID: {} is {}", roomId, levelId, id, totalLight);
+            return totalLight;
+        }
     }
 }
