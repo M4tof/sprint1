@@ -205,6 +205,16 @@ public class Level {
         return 0;
     }
 
+//    New
+    public void removeRoom(String id){
+        Room roomToRemove = getRoomById(id);
+        if (roomToRemove != null){
+            rooms.remove(roomToRemove);
+        } else{
+            throw new IllegalArgumentException("No room found with ID " + id);
+        }
+    }
+
     /**
      * Zwraca tekstową reprezentację piętra.
      *

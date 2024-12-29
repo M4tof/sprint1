@@ -190,6 +190,16 @@ public class Building {
         return 0;
     }
 
+//    NEW
+    public void removeLevel(String id){
+        Level levelToRemove = getLevelById(id);
+        if (levelToRemove != null){
+            levels.remove(levelToRemove);
+        }else {
+            throw new IllegalArgumentException("No level found with ID " + id);
+        }
+    }
+
     /**
      * Zwraca tekstową reprezentację budynku
      *
