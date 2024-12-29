@@ -1,0 +1,183 @@
+POST
+Add-building
+localhost:8080/Data
+
+Body
+json
+{
+  "id": "B02",
+  "name": "Office Building",
+  "levels": [
+    {
+      "id": "L1",
+      "name": "Ground Floor",
+      "rooms": [
+        {
+          "type": "Room",
+          "id": "R1",
+          "name": "Conference Room",
+          "area": 50.0,
+          "cube": 200.0
+        },
+        {
+          "type": "OfficeRoom",
+          "id": "R2",
+          "name": "Office 101",
+          "area": 30.0,
+          "cube": 120.0,
+          "heating": 300.0,
+          "light": 200.0
+        },
+        {
+          "type": "Balcony",
+          "id": "R3",
+          "name": "Balcony 1",
+          "area": 30.0,
+          "cube": 120.0,
+          "light": 140.0
+        },
+        {
+          "type": "Pool",
+          "id": "R4",
+          "name": "Pool 1",
+          "area": 40.0,
+          "cube": 120.0,
+          "heating": 300.0,
+          "light": 200.0,
+          "poolArea": 35.0
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "name": "First Floor",
+      "rooms": [
+        {
+          "type": "Garage",
+          "id": "R5",
+          "name": "Garage 1",
+          "area": 30.0,
+          "cube": 120.0,
+          "light": 140.0,
+          "garageCapacity": 3
+        },
+        {
+          "type": "Pool",
+          "id": "R6",
+          "name": "Pool 2",
+          "area": 40.0,
+          "cube": 120.0,
+          "heating": 300.0,
+          "light": 200.0,
+          "poolArea": 37.0
+        }
+      ]
+    }
+  ]
+}
+
+GET
+Get-buildings
+localhost:8080/Data
+
+GET
+Total-area
+localhost:8080/Calculate/Light/B02/L1/R1
+
+GET
+Total-cube
+localhost:8080/Calculate/Cube/B0023/L1
+
+DELETE
+DeleteB0023
+localhost:8080/Data/B01
+
+POST
+Add-Level
+localhost:8080/Data/B02
+
+Body
+json
+   {
+      "id": "L24",
+      "name": "Ground Floor",
+      "rooms": [
+        {
+          "type": "Room",
+          "id": "R1",
+          "name": "Conference Room",
+          "area": 50.0,
+          "cube": 200.0
+        },
+        {
+          "type": "OfficeRoom",
+          "id": "R2",
+          "name": "Office 101",
+          "area": 30.0,
+          "cube": 120.0,
+          "heating": 300.0,
+          "light": 200.0
+        },
+        {
+          "type": "Balcony",
+          "id": "R3",
+          "name": "Balcony 1",
+          "area": 30.0,
+          "cube": 120.0,
+          "light": 140.0
+        },
+        {
+          "type": "Pool",
+          "id": "R4",
+          "name": "Pool 1",
+          "area": 40.0,
+          "cube": 120.0,
+          "heating": 300.0,
+          "light": 200.0,
+          "poolArea": 35.0
+        }
+      ]
+    }
+
+POST
+add-room
+localhost:8080/Data/B02/L1
+
+Body
+json
+{
+          "type": "Balcony",
+          "id": "R69",
+          "name": "Balcony 1",
+          "area": 30.0,
+          "cube": 120.0,
+          "light": 140.0
+        }
+
+
+PATCH
+Modify-Room
+localhost:8080/Data/B02/L1/R2
+
+Body
+json
+{
+  "name": "pool1",
+  "light": 20.0,
+  "area": 69
+}
+
+PUT
+Force Add
+localhost:8080/Data/B02/L1/R69
+
+Body
+json
+{
+          "type": "Balcony",
+          "id": "R69",
+          "name": "Balcony 1",
+          "area": 230.0,
+          "cube": 220.0,
+          "light": 240.0
+        }

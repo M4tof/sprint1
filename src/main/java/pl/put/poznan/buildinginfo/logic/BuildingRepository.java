@@ -101,4 +101,14 @@ public class BuildingRepository {
         return null;
     }
 
+    //NEW
+    public void removeBuilding(String Id) {
+        Building buildingToRemove = getBuildingById(Id);
+        if (buildingToRemove != null) {
+            buildings.remove(buildingToRemove);
+        } else {
+            throw new IllegalArgumentException("No building found with ID " + Id);
+        }
+    }
+
 }

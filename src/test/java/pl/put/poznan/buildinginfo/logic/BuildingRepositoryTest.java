@@ -43,4 +43,30 @@ class BuildingRepositoryTest {
 
         assertNull(retrievedBuilding, "The building should be null for a non-existing ID.");
     }
+
+    @Test
+    void testRemoveBuildingSuccessfully() {
+        repo.removeBuilding("B001");
+
+        assertNull(repo.getBuildingById("B001"),"This building shouldn't exist anymore");
+
+        office = new Building("B001", "Office Building");
+        Level level1 = new Level("L001", "Ground Floor");
+        Level level2 = new Level("L002", "First Floor");
+        office.addLevel(level1);
+        office.addLevel(level2);
+        repo.addBuilding(office);
+
+        Building retrievedBuilding = repo.getBuildingById("B001");
+        assertEquals("B001", retrievedBuilding.getId(), "The building ID should match.");
+    }
+
+    @Test
+    void testRemoveNonExistentBuilding() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            repo.removeBuilding("999");
+        });
+        assertEquals("No building found with ID 999", exception.getMessage(), "Exception message should indicate non-existent building");
+    }
+
 }
