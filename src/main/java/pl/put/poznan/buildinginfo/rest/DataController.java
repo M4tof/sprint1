@@ -420,6 +420,10 @@ public class DataController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No level found with ID: " + levelId);
             }
 
+            if (level.getRoomById(roomId) != null){
+                level.removeRoom(roomId);
+            }
+
             level.addRoom(newRoom);
             logger.info("Successfully added room ID {} to Level ID {} in Building ID {}", newRoom.getId(), levelId, id);
             return ResponseEntity.status(HttpStatus.CREATED).body("Successfully added room");
