@@ -21,8 +21,8 @@ public class Pool extends OfficeRoom{
      * @param light oświetlenie pomieszczenia
      * @param poolArea powierzchnia basenu
      */
-    public Pool(String id, String name, float area, float cube, float heating, float light, float poolArea) {
-        super(id, name, area, cube, heating, light);
+    public Pool(String id, String name, float area, float cube, float heating, float light, float water, float poolArea) {
+        super(id, name, area, cube, heating, light, water);
         this.poolArea = poolArea;
     }
 

@@ -89,6 +89,10 @@ public class DataController {
                         logger.error("Invalid light for room: {}", room.getName());
                         return ResponseEntity.badRequest().body("Invalid light for room: " + room.getName());
                     }
+                    if (officeRoom.getWater() <= 0) {
+                        logger.error("Invalid water usage for room: {}", room.getName());
+                        return ResponseEntity.badRequest().body("Invalid water usage for room: " + room.getName());
+                    }
                     if(room instanceof Pool){
                         Pool pool = (Pool) room;
                         if(pool.getPoolArea() <=0){
@@ -535,6 +539,16 @@ public class DataController {
                                 logger.info("Updated room heating to: {}", heating);
                             } else {
                             return ResponseEntity.badRequest().body("Unable to modify 'heating'");
+                        }
+                        break;
+
+                    case "water":
+                        if (room instanceof OfficeRoom && value instanceof Number) {
+                            float water = ((Number) value).floatValue();
+                            ((OfficeRoom) room).setWater(water);
+                            logger.info("Updated room water usage to: {}", water);
+                        } else {
+                            return ResponseEntity.badRequest().body("Unable to modify 'water'");
                         }
                         break;
 

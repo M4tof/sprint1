@@ -190,6 +190,19 @@ public class Building {
         return 0;
     }
 
+    /**
+     * Oblicza całkowite zużycie wody w budynku.
+     *
+     * @return całkowite zużycie wody
+     */
+    public float getBuildingWater(){
+        float sum = 0;
+        for(Level level : this.getLevels()){
+            sum += level.getLevelWater();
+        }
+        return sum;
+    }
+
 //    NEW
     public void removeLevel(String id){
         Level levelToRemove = getLevelById(id);
