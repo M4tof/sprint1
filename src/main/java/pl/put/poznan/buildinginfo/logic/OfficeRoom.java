@@ -5,6 +5,7 @@ public class OfficeRoom extends Room {
 
     private float heating; // Ogrzewanie
     private float light; // Oświetlenie
+    private float water; // Zużycie wody
 
     // Constructor
     /**
@@ -21,11 +22,13 @@ public class OfficeRoom extends Room {
      * @param cube objętość pomieszczenia
      * @param heating ogrzewanie pomieszczenia
      * @param light oświetlenie pomieszczenia
+     * @param water zużycie wody na pomieszczenie
      */
-    public OfficeRoom(String id, String name, float area, float cube, float heating, float light) {
+    public OfficeRoom(String id, String name, float area, float cube, float heating, float light, float water) {
         super(id, name, area, cube);
         this.heating = heating;
         this.light = light;
+        this.water = water;
     }
 
     /**
@@ -64,6 +67,25 @@ public class OfficeRoom extends Room {
         this.light = light;
     }
 
+
+    /**
+     * Zwraca zużycie wody pomieszczenia.
+     *
+     * @return zużycie wody
+     */
+    public float getWater() {
+        return water;
+    }
+
+    /**
+     * Ustawia nowe zużycie wody pomieszczenia.
+     *
+     * @param water zużycie wody
+     */
+    public void setWater(float water) {
+        this.water = water;
+    }
+
     /**
      * Zwraca tekstową reprezentację pomieszczenia.
      *
@@ -79,6 +101,7 @@ public class OfficeRoom extends Room {
                 ", cube=" + this.getCube() +
                 ", heating=" + heating +
                 ", light=" + light +
+                ", water=" + water +
                 '}';
     }
 }

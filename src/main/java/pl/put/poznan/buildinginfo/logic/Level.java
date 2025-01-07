@@ -205,6 +205,22 @@ public class Level {
         return 0;
     }
 
+    /**
+     * Zwraca łączne zużycie wody.
+     *
+     * @return łączne zużycie wody
+     */
+    public float getLevelWater(){
+        float sum = 0;
+        for(Room room : this.getRooms()){
+            if(room instanceof OfficeRoom){
+                OfficeRoom officeRoom = (OfficeRoom) room;
+                sum += officeRoom.getWater();
+            }
+        }
+        return sum;
+    }
+
 //    New
     public void removeRoom(String id){
         Room roomToRemove = getRoomById(id);

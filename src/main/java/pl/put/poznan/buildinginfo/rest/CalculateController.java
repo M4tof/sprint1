@@ -103,6 +103,28 @@ public class CalculateController {
         return totalLight;
     }
 
+    // localhost:8080/Calculate/Water/B001
+    @GetMapping(value = "/Water/{id}", produces = "application/json")
+    public float calculateTotalWater(@PathVariable String id) {
+        logger.debug("Received request to calculate total water usage for building with ID: {}", id);
+
+        if (id == null) {
+            logger.error("Invalid building id");
+            throw new IllegalArgumentException("Invalid building id");
+        }
+
+        Building building = repository.getBuildingById(id);
+
+        if (building == null) {
+            logger.error("Building not found with ID: {}", id);
+            throw new IllegalArgumentException("Building not found");
+        }
+
+        float totalWater = building.getBuildingWater();
+        logger.debug("Calculated total water usage for building with ID: {} is {}", id, totalWater);
+        return totalWater;
+    }
+
     // localhost:8080/Calculate/Area/B001/L1
     @GetMapping(value = "/Area/{id}/{levelId}", produces = "application/json")
     public float calculateTotalArea(@PathVariable String id, @PathVariable String levelId) {
@@ -237,6 +259,40 @@ public class CalculateController {
         float totalLight = level.getLevelLight();
         logger.debug("Calculated total light for level with ID: {} within building with ID: {} is {}", levelId, id, totalLight);
         return totalLight;
+    }
+
+    // localhost:8080/Calculate/Water/B001/L1
+    @GetMapping(value = "/Water/{id}/{levelId}", produces = "application/json")
+    public float calculateTotalWater(@PathVariable String id, @PathVariable String levelId) {
+        logger.debug("Received request to calculate total water usage for level with ID: {} within building with ID: {}", levelId, id);
+
+        if (id == null) {
+            logger.error("Invalid building id");
+            throw new IllegalArgumentException("Invalid building id");
+        }
+
+        Building building = repository.getBuildingById(id);
+
+        if (building == null) {
+            logger.error("Building not found with ID: {}", id);
+            throw new IllegalArgumentException("Building not found");
+        }
+
+        if (levelId == null) {
+            logger.error("Level not found with ID: {} within building with ID: {}", levelId, id);
+            throw new IllegalArgumentException("Level not found");
+        }
+
+        Level level = building.getLevelById(levelId);
+
+        if (level == null) {
+            logger.error("Level not found with ID: {} within building with ID: {}", levelId, id);
+            throw new IllegalArgumentException("Level not found");
+        }
+
+        float totalWater = level.getLevelWater();
+        logger.debug("Calculated total water usage for level with ID: {} within building with ID: {} is {}", levelId, id, totalWater);
+        return totalWater;
     }
 
     // localhost:8080/Calculate/Area/B001/L1/R1
@@ -437,5 +493,57 @@ public class CalculateController {
             logger.debug("Calculated total light for room with ID: {} within level with ID: {} within building with ID: {} is {}", roomId, levelId, id, totalLight);
             return totalLight;
         }
+    }
+
+    // localhost:8080/Calculate/Water/B001/L1/R1
+    @GetMapping(value = "/Water/{id}/{levelId}/{roomId}", produces = "application/json")
+    public float calculateTotalWater(@PathVariable String id, @PathVariable String levelId, @PathVariable String roomId) {
+        logger.debug("Received request to calculate total water usage for room with ID: {} within level with ID: {} within building with ID: {}", roomId, levelId, id);
+
+        if (id == null) {
+            logger.error("Invalid building id");
+            throw new IllegalArgumentException("Invalid building id");
+        }
+        Building building = repository.getBuildingById(id);
+
+        if (building == null) {
+            logger.error("Building not found with ID: {}", id);
+            throw new IllegalArgumentException("Building not found");
+        }
+
+        if (levelId == null) {
+            logger.error("Invalid level id");
+            throw new IllegalArgumentException("Invalid level id");
+        }
+
+        Level level = building.getLevelById(levelId);
+
+        if (level == null) {
+            logger.error("Level not found with ID: {} within building with ID: {}", levelId, id);
+            throw new IllegalArgumentException("Level not found");
+        }
+
+        if (roomId == null) {
+            logger.error("Invalid room id");
+            throw new IllegalArgumentException("Invalid room id");
+        }
+
+        Room room = level.getRoomById(roomId);
+
+        if(room == null){
+            logger.error("Room not found with ID: {} within level with ID: {} within building with ID: {}", roomId, levelId, id);
+            throw new IllegalArgumentException("Level not found");
+        }
+
+        if(!(room instanceof OfficeRoom)){
+            logger.error("Specified room does not have water parameter, choose a room of type with water");
+            throw new IllegalArgumentException("Invalid room type");
+        }
+
+        OfficeRoom officeRoom = (OfficeRoom) room;
+        float totalWater = officeRoom.getWater();
+
+        logger.debug("Calculated total water usage for room with ID: {} within level with ID: {} within building with ID: {} is {}", roomId, levelId, id, totalWater);
+        return totalWater;
     }
 }
