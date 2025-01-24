@@ -50,15 +50,6 @@ public class Building {
         this.levels.add(level);
     }
 
-    /**
-     * Usuwa piętro z budynku.
-     *
-     * @param level piętro do usunięcia
-     */
-    public void removeRoom(Level level) {
-        this.levels.remove(level);
-    }
-
     // Getters and setters
     /**
      * Pobiera identyfikator budynku.
