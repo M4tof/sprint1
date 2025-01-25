@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.buildinginfo.logic.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/Calculate")
 public class CalculateController {
@@ -157,6 +159,28 @@ public class CalculateController {
         float totalArea = level.getLevelArea();
         logger.debug("Calculated total area for level with ID: {} within building with ID: {} is {}", levelId, id, totalArea);
         return totalArea;
+    }
+
+    // localhost:8080/Calculate/OverHeating/B001
+    @GetMapping(value = "/OverHeating/{id}", produces = "application/json")
+    List<String> calculateOverHeating(@PathVariable String id) {
+        logger.debug("Received request to find rooms over the heating limit for building with ID: {}", id);
+
+        if (id == null) {
+            logger.error("Invalid building id");
+            throw new IllegalArgumentException("Invalid building id");
+        }
+
+        Building building = repository.getBuildingById(id);
+
+        if (building == null) {
+            logger.error("Building not found with ID: {}", id);
+            throw new IllegalArgumentException("Building not found");
+        }
+
+        List<String> OverHeating = building.getOverLimitHeating();
+        logger.debug("Found rooms over the heating limit for building with ID: {}:  {}", id, OverHeating);
+        return OverHeating;
     }
 
     // localhost:8080/Calculate/Cube/B001/L1
