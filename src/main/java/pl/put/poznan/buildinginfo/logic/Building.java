@@ -21,6 +21,7 @@ public class Building {
     private String id; // Unikalny identyfikator budynku
     private String name; // Optional nazwa budynku
     private List<Level> levels; // Lista wszystkich pięter będących w budynku
+    private float maxHeating; // Paramet określający maksymalne zużycie ciepła
 
     // Constructor
     /**
@@ -38,6 +39,7 @@ public class Building {
         this.id = id;
         this.name = name;
         this.levels = new ArrayList<>();
+        this.maxHeating = 5.0f;
     }
 
     // Methods to manage levels
@@ -195,6 +197,12 @@ public class Building {
     }
 
 //    NEW
+
+    /**
+     * Usuwa cały poziom o podanym id.
+     *
+     * @param id poziomu do usunięcia
+     */
     public void removeLevel(String id){
         Level levelToRemove = getLevelById(id);
         if (levelToRemove != null){
@@ -202,6 +210,27 @@ public class Building {
         }else {
             throw new IllegalArgumentException("No level found with ID " + id);
         }
+    }
+
+    /**
+     * Zwraca pomieszczenia przekraczające przewidywane zapotrzebowanie grzewcze.
+     *
+     * @return lista pomieszczeń przekraczających
+     */
+    public List<String> getOverLimitHeating(){
+        List<String> exceedingRooms = new ArrayList<>();
+        for (Level level : this.getLevels()) {
+            for (Room room : level.getRooms()) {
+                if (room instanceof OfficeRoom) {
+                    OfficeRoom officeRoom = (OfficeRoom) room;
+
+                    if (officeRoom.getCube() > 0 && (officeRoom.getHeating() / officeRoom.getCube()) > maxHeating){
+                        exceedingRooms.add(room.toString());
+                    }
+                }
+            }
+        }
+        return exceedingRooms;
     }
 
     /**

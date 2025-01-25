@@ -222,6 +222,12 @@ public class Level {
     }
 
 //    New
+
+    /**
+     * Usuwa pomieszczenie o podanym id.
+     *
+     * @param id pomieszczenia do usunięcia
+     */
     public void removeRoom(String id){
         Room roomToRemove = getRoomById(id);
         if (roomToRemove != null){
