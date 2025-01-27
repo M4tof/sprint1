@@ -1,5 +1,17 @@
 package pl.put.poznan.buildinginfo.logic;
 
+/**
+ * Klasa reprezentująca balkon w budynku.
+ * <p>
+ * Celem klasy {@code Balcon} jest przechowywanie oraz umożliwienie manimulacji
+ * podstawowymi danymi tego pokoju.
+ * </p>
+ * Do danych każdego pomieszczenie zaliczają się jego identyfikator, nazwa, powierzchnia, kubatura oraz oświetlenie.
+ * <p>
+ * Metody zawarte w klasie umożliwiają zewnętrzny dostęp do tych prywatnych atrybutów oraz w miarę potrzeb do ich zmian.
+ * </p>
+ */
+
 public class Balcony extends Room{
 
     private float light; // Oświetlenie
