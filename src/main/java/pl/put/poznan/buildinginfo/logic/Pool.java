@@ -1,5 +1,17 @@
 package pl.put.poznan.buildinginfo.logic;
 
+/**
+ * Klasa reprezentująca basen w budynku.
+ * <p>
+ * Celem klasy {@code Pool} jest przechowywanie oraz umożliwienie manimulacji
+ * podstawowymi danymi tego pokoju.
+ * </p>
+ * Do danych każdego pomieszczenie zaliczają się jego identyfikator, nazwa, powierzchnia, kubatura, oświetlenie oraz ogrzewanie.
+ * <p>
+ * Metody zawarte w klasie umożliwiają zewnętrzny dostęp do tych prywatnych atrybutów oraz w miarę potrzeb do ich zmian.
+ * </p>
+ */
+
 public class Pool extends OfficeRoom{
 
     private float poolArea; // Powierzchnia samego basenu
