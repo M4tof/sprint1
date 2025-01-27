@@ -1,5 +1,17 @@
 package pl.put.poznan.buildinginfo.logic;
 
+/**
+ * Klasa reprezentująca garaż w budynku.
+ * <p>
+ * Celem klasy {@code Garage} jest przechowywanie oraz umożliwienie manimulacji
+ * podstawowymi danymi garażu.
+ * </p>
+ * Do danych każdego pomieszczenie zaliczają się jego identyfikator, nazwa, powierzchnia, kubatura, oświetlenie oraz jego pojemność.
+ * <p>
+ * Metody zawarte w klasie umożliwiają zewnętrzny dostęp do tych prywatnych atrybutów oraz w miarę potrzeb do ich zmian.
+ * </p>
+ */
+
 public class Garage extends Balcony{
     private int garageCapacity; //liczba samochodów do pomieszczenia
 
