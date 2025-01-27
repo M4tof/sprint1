@@ -1,5 +1,17 @@
 package pl.put.poznan.buildinginfo.logic;
 
+/**
+ * Klasa reprezentująca pokój biurowy w budynku.
+ * <p>
+ * Celem klasy {@code Garage} jest przechowywanie oraz umożliwienie manimulacji
+ * podstawowymi danymi tego pokoju.
+ * </p>
+ * Do danych każdego pomieszczenie zaliczają się jego identyfikator, nazwa, powierzchnia, kubatura, oświetlenie oraz ogrzewanie.
+ * <p>
+ * Metody zawarte w klasie umożliwiają zewnętrzny dostęp do tych prywatnych atrybutów oraz w miarę potrzeb do ich zmian.
+ * </p>
+ */
+
 public class OfficeRoom extends Room {
 
 
